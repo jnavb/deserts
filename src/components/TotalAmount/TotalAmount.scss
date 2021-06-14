@@ -1,0 +1,14 @@
+.total-amount {
+  font-size: 22px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+
+  &__label {
+    padding-right: 120px;
+  }
+
+  &__price {
+    color: #f4b768;
+  }
+}

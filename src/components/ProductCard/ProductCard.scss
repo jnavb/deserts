@@ -1,0 +1,120 @@
+@import '../../utils.scss';
+
+.product-card {
+  position: relative;
+  color: black;
+  box-shadow: 4px 5px 9px -5px #9b9b9b;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  overflow: hidden;
+  max-width: 300px;
+
+  @include screen-desktop {
+    cursor: initial;
+  }
+
+  &__favorite {
+    position: absolute;
+    margin: 12px;
+    z-index: 2;
+    right: 0;
+    top: 0;
+
+    svg {
+      fill: white;
+    }
+
+    &--active {
+      svg {
+        fill: #ea635e;
+      }
+    }
+  }
+
+  &__thumbnail {
+    height: 200px;
+    position: relative;
+
+    img {
+      min-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      height: 16px;
+      width: 16px;
+      background-color: white;
+      border-radius: 50%;
+      top: 50%;
+    }
+
+    &::before {
+      right: -8px;
+    }
+
+    &::after {
+      left: -8px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    height: calc(100% - 200px);
+    box-sizing: border-box;
+
+    @include screen-desktop {
+      padding: 18px;
+    }
+  }
+
+  &__section-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+
+    @include screen-desktop {
+      flex-direction: row;
+    }
+  }
+
+  &__description {
+    margin-top: 12px;
+  }
+
+  &__price {
+    color: #3471e6;
+  }
+
+  &__description,
+  &__stock,
+  &__section-2 {
+    @include only-desktop;
+  }
+
+  &__section-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 32px;
+    align-items: center;
+  }
+
+  &__btn {
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 5px;
+    box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+      -6px -6px 10px rgba(255, 255, 255, 0.5),
+      6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+  }
+}

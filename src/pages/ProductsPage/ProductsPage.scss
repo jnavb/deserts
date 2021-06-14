@@ -1,0 +1,35 @@
+@import '../../utils.scss';
+
+.products-page {
+  display: flex;
+
+  &__products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 16px;
+    height: 100%;
+    padding: 16px;
+
+    & > * {
+      flex-basis: calc(50% - 16px);
+    }
+  }
+
+  &__divider {
+    @include only-desktop;
+  }
+
+  &__products-section {
+    @include screen-desktop {
+      width: 70%;
+    }
+  }
+
+  &__cart-section {
+    @include only-desktop;
+    @include screen-desktop {
+      width: 30%;
+    }
+  }
+}

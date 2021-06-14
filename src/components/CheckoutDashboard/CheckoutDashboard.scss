@@ -1,0 +1,19 @@
+.checkout-dashboard {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-sizing: border-box;
+
+  &__items {
+    height: 100%;
+    display: flex;
+    gap: 38px;
+    flex-direction: column;
+  }
+
+  &__total-amount {
+    margin-top: auto;
+  }
+}

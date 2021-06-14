@@ -1,0 +1,58 @@
+$mobile-breakpoint: 568px;
+$tablet-breakpoint: 960px;
+
+@mixin screen-mobile {
+  @media (max-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin screen-desktop {
+  @media (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin screen-tablet-and-mobile {
+  @media (max-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin screen-tablet-and-desktop {
+  @media (min-width: $mobile-breakpoint) {
+    @content;
+  }
+}
+
+@mixin only-mobile {
+  @include screen-desktop() {
+    display: none !important;
+  }
+}
+
+@mixin only-mobile-and-tablet {
+  @include screen-desktop() {
+    display: none !important;
+  }
+}
+
+@mixin only-desktop {
+  @include screen-tablet-and-mobile() {
+    display: none !important;
+  }
+}
+
+@mixin ellipsis($max-width) {
+  max-width: $max-width;
+  @if $max-width != '' {
+    max-width: 100%;
+  }
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    // IE hack
+    overflow: visible;
+  }
+}
