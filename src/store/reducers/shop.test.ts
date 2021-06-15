@@ -37,7 +37,7 @@ describe('[Redux] Shop reducer', () => {
   });
 
   describe('remove from cart', () => {
-    it('should remove items from cart when are on existing state', () => {
+    it('should remove items from cart on existing state', () => {
       const product = productFactory.build({ price: 10 });
       const action = Shop.removeFromCart({ product, quantity: 1 });
       const state: ShopState = {

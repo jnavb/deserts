@@ -22,7 +22,7 @@ describe('[Redux] Shop selectors', () => {
     Selector(selectShop).expect(state).toReturn(state.shop);
   });
 
-  it('should get the entire shop store', () => {
+  it('should get the list of products view', () => {
     const products = productFactory.buildList(10);
 
     const state: RootState = {
@@ -40,7 +40,7 @@ describe('[Redux] Shop selectors', () => {
       .toReturn({ products, error: false, loading: false });
   });
 
-  it('should get the entire shop store', () => {
+  it('should get the checkout view', () => {
     const products = productFactory.buildList(10);
     const productsInCart = productFactory.buildList(1);
     const cart = cartItemFactoryList(1, productsInCart);
