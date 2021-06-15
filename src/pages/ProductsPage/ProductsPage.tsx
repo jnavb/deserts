@@ -27,9 +27,6 @@ const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = ({
 
   const { products, loading, error } = useSelector(selectProductsView);
 
-  if (loading) return <div>...Loading</div>;
-  if (error) return <div>Ops! Something went wrong</div>;
-
   const productsCards = products.map((product) => {
     const handleAdd = () => {
       handleAddOneToCart(product);
@@ -59,6 +56,8 @@ const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = ({
     <div className="products-page">
       <Layout title="New product" className="products-page__products-section">
         <div className="products-page__products">{productsCards}</div>
+        {error && <div>Ops! Something went wrong</div>}
+        {loading && <div>...Loading</div>}
       </Layout>
       <Divider className="products-page__divider" />
       <CartPage className="products-page__cart-section" disableBack={true} />
