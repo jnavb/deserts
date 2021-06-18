@@ -14,7 +14,7 @@ export const useGet = <T>(
     get(path)
       .then((data) => ({ data, error: false, loading: false }))
       .catch((error) => ({ data: null, error, loading: false }))
-      .then(setResponse);
+      .then(setResponse as any);
   };
 
   useEffect(getSomething, []);

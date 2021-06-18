@@ -20,6 +20,7 @@ const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = ({
   handleAddOneToCart,
   handleFavorite: handleToggleFavorite,
 }) => {
+  console.log('Product Page');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Shop.fetchProducts());
