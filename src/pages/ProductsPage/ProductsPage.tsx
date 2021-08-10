@@ -1,6 +1,6 @@
 import { Shop } from '@actions';
 import { Divider, Layout, ProductCard } from '@components';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, FunctionComponent } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { CartPage } from '..';
@@ -15,11 +15,50 @@ export interface ProductsPageProps {
   handleFavorite: (payload: { id: string }) => void;
 }
 
-const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = ({
-  history,
-  handleAddOneToCart,
-  handleFavorite: handleToggleFavorite,
-}) => {
+const connector = connect(null, (dispatch) => {
+  return {
+    handleAddOneToCart: (product: Product) => {
+      dispatch(Shop.addToCart({ product, quantity: 1 }));
+    },
+    handleFavorite: ({ id }: { id: string }) => {
+      dispatch(Shop.toggleFavorites({ id }));
+    },
+  };
+});
+
+ 
+const _ProductCardSmart: FunctionComponent<any> = ({
+    history,
+    handleAddOneToCart,
+    handleToggleFavorite,
+    ...product
+  }) => {
+  const handleAdd = () => {
+    handleAddOneToCart(product);
+  };
+  const handleFavorite = () => {
+    handleToggleFavorite({ id: product.id });
+  };
+  const handleContent = () => {
+    if (isDesktop()) return;
+
+    handleAddOneToCart(product);
+    history.push(path.cart);
+  };
+  return (
+    <ProductCard
+      {...product}
+      key={product.id}
+      handleAdd={handleAdd}
+      handleFavorite={handleFavorite}
+      handleContent={handleContent}
+    ></ProductCard>
+  );
+}
+
+const ProductCardSmart = connector(withRouter(_ProductCardSmart));
+
+const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = () => {
   console.log('Product Page');
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,27 +68,11 @@ const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = ({
   const { products, loading, error } = useSelector(selectProductsView);
 
   const productsCards = products.map((product) => {
-    const handleAdd = () => {
-      handleAddOneToCart(product);
-    };
-    const handleFavorite = () => {
-      handleToggleFavorite({ id: product.id });
-    };
-    const handleContent = () => {
-      if (isDesktop()) return;
-
-      handleAddOneToCart(product);
-      history.push(path.cart);
-    };
-
     return (
-      <ProductCard
+      <ProductCardSmart
         {...product}
         key={product.id}
-        handleContent={handleContent}
-        handleAdd={handleAdd}
-        handleFavorite={handleFavorite}
-      ></ProductCard>
+      ></ProductCardSmart>
     );
   });
 
@@ -66,15 +89,4 @@ const ProductsPage: FC<RouteComponentProps<any> & ProductsPageProps> = ({
   );
 };
 
-const connector = connect(null, (dispatch) => {
-  return {
-    handleAddOneToCart: (product: Product) => {
-      dispatch(Shop.addToCart({ product, quantity: 1 }));
-    },
-    handleFavorite: ({ id }: { id: string }) => {
-      dispatch(Shop.toggleFavorites({ id }));
-    },
-  };
-});
-
-export default connector(withRouter(ProductsPage));
+export default ProductsPage;
